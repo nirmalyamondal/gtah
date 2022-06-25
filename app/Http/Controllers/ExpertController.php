@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Expert;
 use App\Models\Testimonial;
+use App\Models\Country;
+use App\Models\Category;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
@@ -21,6 +23,8 @@ class ExpertController extends Controller
     public function create()
     {
         $data = [];       
+        $data['countries'] = Country::get(['id', 'name']);
+        $data['categories'] = Category::all(['id', 'slug'])->where('parent', 0);
         $data['testimonials'] = $this->unAssignedTestimonial();
         return view('expert/add', ["data"=>$data]);
     }
@@ -224,13 +228,12 @@ class ExpertController extends Controller
      */
     public function unAssignedTestimonial()
     {
-        $testimonial = Testimonial::all()->sortBy('id')->toArray();    
+        //$testimonial = Testimonial::all()->sortBy('id')->toArray();    
+        $testimonial = Testimonial::where('owner', '=', '')->get()->sortBy('id')->toArray();
         $optionTestimonial = '';
         foreach($testimonial as $testimonik => $testimoniv) {
-            if($testimoniv['owner'] == '') {
-              $optValue = mb_strimwidth('['.$testimoniv['id'].']'.$testimoniv['author'].':'.$testimoniv['description'], 0, 59, '...');
-              $optionTestimonial .= '<option value="'.$testimoniv['id'].'">'.$optValue.'</option>';  
-          }            
+          $optValue = mb_strimwidth('['.$testimoniv['id'].']'.$testimoniv['author'].':'.$testimoniv['description'], 0, 59, '...');
+          $optionTestimonial .= '<option value="'.$testimoniv['id'].'">'.$optValue.'</option>';  
         }
         return $optionTestimonial;
     }
@@ -252,4 +255,41 @@ class ExpertController extends Controller
         return $optionTestimonial;
     }
 
+    /**
+     * Generate Options for assigned Testimonials.
+     *
+     * @param  int $country 
+     * @param  int $category
+     * @param  int $sub_category 
+     * @return string
+    */
+    public function getTestimonialsByFilter($country,$category,$sub_category) {
+        $whereClause = "where('1', '=', 1)->";
+        if($country > 0){
+            $whereClause .= "where('country', '=', $country)->";
+        }
+        if($category > 0){
+            $whereClause .= "where('category', $category)->";
+        }
+        if($sub_category > 0){
+            $whereClause .= "where('sub_category', $sub_category)->";
+        }
+        $testimonial = Testimonial::$whereClause.get()->toArray();
+        $optionTestimonial = '';
+        try{
+            if(!empty($testimonial) && is_array($testimonial)){
+                foreach($testimonial as $testimonik => $testimoniv) {
+                  $optValue = mb_strimwidth('['.$testimoniv['id'].']'.$testimoniv['author'].':'.$testimoniv['description'], 0, 59, '...');
+                  $optionTestimonial .= '<option value="'.$testimoniv['id'].'">'.$optValue.'</option>';  
+                }
+            }
+            $data['status'] = true;
+            $data['data'] = $optionTestimonial;
+        } catch(Exception $e) {
+            $data['status'] = false;
+            $data['msg'] = $e->getMessage();
+        }
+        echo json_encode($data);
+        exit;
+    }
 }

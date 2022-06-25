@@ -47,6 +47,7 @@ Route::post('expert', [ExpertController::class, 'store']);
 Route::get('expert/{id}', [ExpertController::class, 'edit']);
 Route::patch('expert/{id}', [ExpertController::class, 'update']);
 Route::delete('expert/{id}', [ExpertController::class, 'destroy']);
+Route::get('expert/{country}/{category}/{sub_category}', [ExpertController::class, 'getTestimonialsByFilter']);
 
 Route::get('testimonials', [TestimonialController::class, 'show'])->name('testimonial.show');
 Route::get('testimonial', [TestimonialController::class, 'create'])->name('testimonial.create');
