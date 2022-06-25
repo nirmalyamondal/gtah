@@ -97,3 +97,50 @@ $(document).ready(function() {
   });
   $('#testimonials_to option').prop('selected', true);
 });
+
+  $(document).ready(function() {
+    //AJAX Call for Sub-category
+    $('#category').on('change', function() {
+      const cat_id  = $(this).val();
+      //const data = { };
+      fetch(baseUrl+'sub_category/'+cat_id, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        //body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status){
+          $('#sub_category').html(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    });
+    //AJAX Call for Testimonial filter
+    $('#testimonials_filter').on('click', function() {
+      const countryt  = $('#countryt').val();
+      const category  = $('#category').val();
+      const sub_category  = $('#sub_category').val();
+      var params = countryt+'/'+category+'/'+sub_category;
+      fetch(baseUrl+'expert/'+params, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        //body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status){
+          $('#testimonials').html(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    });
+  });

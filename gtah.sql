@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 22, 2022 at 07:26 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Host: localhost:3306
+-- Generation Time: Jun 08, 2022 at 10:06 AM
+-- Server version: 8.0.29-0ubuntu0.22.04.2
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `banners` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `bannerimage` varchar(255) NOT NULL,
   `bannerimagealt` varchar(55) NOT NULL,
   `imageorder` varchar(255) NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE `banners` (
   `imageright` varchar(255) NOT NULL,
   `imagerightal` varchar(55) NOT NULL,
   `status` enum('A','D') NOT NULL DEFAULT 'A',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,15 +48,15 @@ CREATE TABLE `banners` (
 --
 
 CREATE TABLE `beusers` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `group` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `uploaded_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `beusers`
@@ -72,16 +72,16 @@ INSERT INTO `beusers` (`id`, `name`, `username`, `password`, `group`, `created_a
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `pid` int(11) NOT NULL DEFAULT 0,
+  `id` int NOT NULL,
+  `pid` int NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `level` int(11) NOT NULL DEFAULT 1,
-  `status` int(11) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `level` int NOT NULL DEFAULT '1',
+  `status` int NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
@@ -109,11 +109,11 @@ INSERT INTO `categories` (`id`, `pid`, `name`, `slug`, `level`, `status`, `creat
 --
 
 CREATE TABLE `countries` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `sortname` varchar(3) NOT NULL,
   `name` varchar(150) NOT NULL,
-  `phonecode` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `phonecode` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `countries`
@@ -374,25 +374,25 @@ INSERT INTO `countries` (`id`, `sortname`, `name`, `phonecode`) VALUES
 --
 
 CREATE TABLE `experts` (
-  `id` int(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `mobile` varchar(25) DEFAULT NULL,
+  `id` int NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `mobile` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `subject` varchar(255) NOT NULL,
-  `rating` int(11) NOT NULL,
+  `rating` int NOT NULL,
   `orderfinish` varchar(255) NOT NULL,
   `orderprogress` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
   `imagealt` varchar(155) NOT NULL,
-  `qualification` varchar(255) DEFAULT NULL,
-  `testimonials` text DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `qualification` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `testimonials` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `status` int NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `experts`
@@ -401,25 +401,7 @@ CREATE TABLE `experts` (
 INSERT INTO `experts` (`id`, `email`, `mobile`, `name`, `subject`, `rating`, `orderfinish`, `orderprogress`, `country`, `description`, `image`, `imagealt`, `qualification`, `testimonials`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, NULL, NULL, 'Rossana Prado', 'Electrical Engineering', 5, '187', '7', 'Australia', 'I have been working with GotoAssignmentHelp for five years now and utilizing my extensive experience in the field to cater for the academic needs of electrical engineers in the US, UK, and Australia with my practical knowledge.', 'vGmZJB2qvX4IY9sETGtctwSjLQTwmXq9TS5lRDIi.png', 'Rossana Prado', 'Ph. D.', NULL, 1, '2022-05-29 05:28:50', '2022-05-29 11:19:53', NULL),
 (2, NULL, NULL, 'James Marcus', 'Economics', 5, '607', '21', 'United States', 'I am currently working as a professor of economics in one of the USA universities. Responsibilities are: to help students in learning the theoretical and applied aspects of economics at a higher level. I supervise the research graduate (MPhil/PhD) students in learning economics. Besides that, I always try to help students to secure the best grades for themselves.', 'waZht6yGq7x0DVXkeIZeGYtkp6fmEeft7NRcU8m4.png', 'James Marcus', 'Ph. D.', NULL, 1, '2022-05-29 05:30:39', '2022-05-29 11:19:51', NULL),
-(3, NULL, NULL, 'Charlotte Green', 'Accounting', 4, '500', '17', 'United Kingdom', 'My profound knowledge and 10 years of experience in the field of Accounting has helped many students in delivering well-drafted academic document and assignments. I have also supervised research graduate (MPhil/PhD) students in learning Accounting.', 'pjvQx1gnv86enyUGmvLXu08oLXBy1SswgIB6L97Y.png', 'Charlotte Green', 'Ph. D.', NULL, 1, '2022-05-29 05:48:52', '2022-06-07 17:41:54', NULL),
-(5, NULL, NULL, 'Nirmalya Mondal', 'Civil Law', 3, 'aaa', 'aaa', 'Malaysia', 'q', 'g4x54jQN3FOEvfgp9cKiR869VTu9Gp7LBS7HELW2.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 20:07:36', '2022-06-21 20:07:36', NULL),
-(6, NULL, NULL, 'Nirmalya Mondal', 'Civil Law', 3, 'aaa', 'aaa', 'Malaysia', 'q', '3mmhi8faPIEADpRVi7ubLCpZX1X4JUSvOcHwLQ0e.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 20:12:17', '2022-06-21 20:12:17', NULL),
-(7, NULL, NULL, 'Nirmalya Mondal', 'Civil Law', 3, 'aaa', 'aaa', 'Malaysia', 'q', 'Voui3fdApWsqmODhkVm9JlL9YJe61kep35nJTWta.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 20:13:51', '2022-06-21 20:13:51', NULL),
-(8, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'DND7OqpT2fSNBaDCh0EGKF8CKuphBsEQNM8ha3U5.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 20:14:17', '2022-06-21 20:14:17', NULL),
-(9, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'iJfhyuS96mVaZf8x5h3M4vDmiabzRT0vzp0YNI78.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 20:16:15', '2022-06-21 20:16:15', NULL),
-(10, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'SXtIgFBGGzcMCPMPlp4vBg9nPLcqS5qjwuSJ4xfd.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 20:17:22', '2022-06-21 20:17:22', NULL),
-(11, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'hsbbzmxNmmMBzO0ZCExanOiUt1lC43ZOPn1SHCTx.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 20:19:43', '2022-06-21 20:19:43', NULL),
-(12, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'ajaqq7lOLlgwMjGPeSDEhXhCj4uNhkYCicGfyxbL.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:31:27', '2022-06-21 21:31:27', NULL),
-(13, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'Kt8Prjo2iqfUHVlmK1y630DA6pXIkz02wEdmT9D8.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:31:49', '2022-06-21 21:31:49', NULL),
-(14, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', '0BQhroEPu7iK0JFLIizchC5UWHDcf3rm6gt8LfTN.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:33:38', '2022-06-21 21:33:38', NULL),
-(15, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'OMvP49chiUUyeaaSp3J4p8RaCClZjJurMH7baZ7S.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:34:09', '2022-06-21 21:34:09', NULL),
-(16, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'h8F2qyu7fzzd4sKWzzMXv5fgZiYmXOirUdtrgf9K.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:35:10', '2022-06-21 21:35:10', NULL),
-(17, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'g89tYAoO2dSy6UHcHdkdjadPSnnu9KbbWkc3cD1e.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:35:29', '2022-06-21 21:35:29', NULL),
-(18, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'UiStW53wn0yn1rU1NrPz3nCRvUaN48USTf1iIhCw.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:36:03', '2022-06-21 21:36:03', NULL),
-(19, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', '4CzsqfLOX2uYJQWqMzPkjvTJWSdVmcaWxQlXap1m.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:36:15', '2022-06-21 21:36:15', NULL),
-(20, NULL, NULL, 'taskszilla.in', 'Civil Law', 4, 'aaa', 'aaa', 'Canada', 'asasas', 'IiRi3j1jFVWjysi7eZ9WExOC3vxarRw2GqfIyjj4.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:39:01', '2022-06-21 21:39:01', NULL),
-(21, NULL, NULL, 'taskszilla.in', 'Civil Law', 3, 'aaa', 'w', 'New Zealand', 'sqssqs', 'jlxXCQuzltzM0R0MlTdowp8kahUkUYIvM0gtFXcM.jpg', 'www', 'wwwwq', NULL, 1, '2022-06-21 21:40:26', '2022-06-21 21:40:26', NULL),
-(22, NULL, NULL, 'taskszilla.in', 'Civil Law', 5, 'w', 'aaa', 'Canada', 'sqsqs', 'ZIOtoX9I61QSlEjeZvMvolO2dzYSwwP3VI8m84D0.jpg', 'ssqs', 'wwwwq', NULL, 1, '2022-06-21 21:52:05', '2022-06-21 21:52:05', NULL);
+(3, NULL, NULL, 'Charlotte Green', 'Accounting', 4, '500', '17', 'United Kingdom', 'My profound knowledge and 10 years of experience in the field of Accounting has helped many students in delivering well-drafted academic document and assignments. I have also supervised research graduate (MPhil/PhD) students in learning Accounting.', 'pjvQx1gnv86enyUGmvLXu08oLXBy1SswgIB6L97Y.png', 'Charlotte Green', 'Ph. D.', NULL, 1, '2022-05-29 05:48:52', '2022-06-07 17:41:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -428,45 +410,29 @@ INSERT INTO `experts` (`id`, `email`, `mobile`, `name`, `subject`, `rating`, `or
 --
 
 CREATE TABLE `testimonials` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `author` varchar(255) NOT NULL,
-  `country` int(11) NOT NULL,
+  `country` int NOT NULL,
   `stream` varchar(255) NOT NULL,
-  `category` int(11) NOT NULL,
-  `sub_category` int(11) NOT NULL DEFAULT 0,
+  `category` int NOT NULL,
+  `sub_category` int NOT NULL DEFAULT '0',
   `description` text NOT NULL,
   `gender` varchar(25) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `image_alt` text DEFAULT NULL,
-  `status` int(11) NOT NULL,
-  `rating` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `owner` int(4) DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `image_alt` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `status` int NOT NULL,
+  `rating` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `testimonials`
 --
 
-INSERT INTO `testimonials` (`id`, `author`, `country`, `stream`, `category`, `sub_category`, `description`, `gender`, `image`, `image_alt`, `status`, `rating`, `created_at`, `owner`, `updated_at`, `deleted_at`) VALUES
-(1, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 22, '2022-06-22 04:32:21', NULL),
-(2, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 22, '2022-06-22 04:32:21', NULL),
-(3, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 22, '2022-06-22 04:32:21', NULL),
-(4, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 22, '2022-06-22 04:32:21', NULL),
-(5, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 22, '2022-06-22 04:32:21', NULL),
-(6, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(7, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(8, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(9, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(10, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(11, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(12, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome1 site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(13, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(14, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(15, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL),
-(16, 'Zoe Shumack2', 13, 'Sydney', 2, 3, 'Awesome 2site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', 0, '2022-06-22 03:11:48', NULL);
+INSERT INTO `testimonials` (`id`, `author`, `country`, `stream`, `category`, `sub_category`, `description`, `gender`, `image`, `image_alt`, `status`, `rating`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Zoe Shumack', 13, 'Sydney', 2, 3, 'Awesome site and one of the best assignment help provider available online. I would definitely recommend my friends to take the help from the experts in programming language. Not only my assignments were well taken care off but my grades improved amazingly. It is truly worth a try.', 'Female', 'gYO1MTA0M6Nrb3avl7TRm6xDIXUQ22HLPzMWQz5Z.jpg', NULL, 1, 4, '2022-06-06 22:09:45', '2022-06-07 22:59:04', NULL);
 
 --
 -- Indexes for dumped tables
@@ -510,31 +476,31 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `beusers`
 --
 ALTER TABLE `beusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
 
 --
 -- AUTO_INCREMENT for table `experts`
 --
 ALTER TABLE `experts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `testimonials`
 --
 ALTER TABLE `testimonials`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

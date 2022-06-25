@@ -417,6 +417,43 @@ Google Web Fonts
                               </div>
                            </div>
                            <div class="row">
+                              <div class="col-md-6">
+                                 <label for="category" class="form-label">Category:</label>
+                                 <select class="col-md-12" id="category" name="category" required="">
+                                    <option value="0"> Select Category</option>
+                                    @foreach ($data['categories'] as $val)
+                                       <option value="{{ $val->id }}">{{ $val->slug }}</option>
+                                    @endforeach
+                                 </select>
+                              </div>
+                              <div class="col-md-6">
+                                 <label for="Sub-Category" class="form-label">Sub-Category</label>
+                                 <select class="col-md-12" id="sub_category" name="sub_category">
+                                    <option value="0"> Select Sub Category</option>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <label for="country" class="form-label">Country</label>
+                                 <select id="countryt" name="countryt" class="col-md-12" >
+                                    <option value="0"> -Select Country- </option>
+                                    @foreach ($data['countries'] as $val)
+                                       <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                    @endforeach
+                                 </select>
+                              </div>
+                              <div class="col-md-2">
+                                 &nbsp;
+                              </div>
+                              <div class="col-md-2">
+                                 <button type="button" id="testimonials_filter" class="btn btn-default btn-block">Search &raquo;</button>
+                              </div>
+                              <div class="col-md-2">
+                                 &nbsp;
+                              </div>
+                           </div>
+                           <div class="row">
                               <div class="panel panel-default">
                                  <div class="panel-body">
                                     <div class="col-md-5">                                              
@@ -459,23 +496,26 @@ Google Web Fonts
       </div>
    </body>
    <footer>
-        <script src="{{ asset('public/js/jquery.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/jquery-ui.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/timepicker.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/ckeditor.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/first-row.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/first-row-2.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/bootstrap-min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/custom.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/application.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/bootstrape-min-1.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/plugins.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/datatables-min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/datatable-function.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/data-table.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/inc_ajax_function.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/jquery.validate.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/multiselect.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('public/js/module/expert.js') }}" type="text/javascript"></script>        
+         <script type="text/javascript">
+            var baseUrl = "{{ url('') }}/";
+         </script>
+         <script src="{{ asset('public/js/jquery.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/jquery-ui.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/timepicker.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/ckeditor.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/first-row.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/first-row-2.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/bootstrap-min.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/custom.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/application.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/bootstrape-min-1.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/plugins.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/datatables-min.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/datatable-function.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/data-table.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/inc_ajax_function.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/jquery.validate.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/multiselect.js') }}" type="text/javascript"></script>
+         <script src="{{ asset('public/js/module/expert.js') }}" type="text/javascript"></script>        
    </footer>
 </html>
