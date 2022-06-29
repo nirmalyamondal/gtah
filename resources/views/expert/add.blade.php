@@ -411,6 +411,7 @@ Google Web Fonts
                                  </div>
                               </div>
                            </div>
+                           <!--testimonial start-->
                            <div class="row">
                               <div class="col-md-12">
                                  <label for="qualification">Testimonials</label>
@@ -420,7 +421,7 @@ Google Web Fonts
                               <div class="col-md-6">
                                  <label for="category" class="form-label">Category:</label>
                                  <select class="col-md-12" id="category" name="category" required="">
-                                    <option value="0"> Select Category</option>
+                                    <option value="0"> -Select Category- </option>
                                     @foreach ($data['categories'] as $val)
                                        <option value="{{ $val->id }}">{{ $val->slug }}</option>
                                     @endforeach
@@ -429,7 +430,7 @@ Google Web Fonts
                               <div class="col-md-6">
                                  <label for="Sub-Category" class="form-label">Sub-Category</label>
                                  <select class="col-md-12" id="sub_category" name="sub_category">
-                                    <option value="0"> Select Sub Category</option>
+                                    <option value="0"> -Select Sub Category- </option>
                                  </select>
                               </div>
                            </div>
@@ -474,6 +475,7 @@ Google Web Fonts
                                  </div>
                               </div>
                            </div>
+                           <!--testimonial end-->
                            <div class="row">
                               <input type="submit" class=" btn btn-default pull-right" value="submit" id="addExpertBtn">
                            </div>
@@ -487,7 +489,7 @@ Google Web Fonts
                <div class="footer">
                   <div class="row">
                      <div class="col-lg-12" style="text-align:center;">
-                        Copyright  ©  GotoAssignmentHelp.com  2022                
+                        Copyright  ©  GotoAssignmentHelp.com  2022          
                      </div>
                   </div>
                </div>

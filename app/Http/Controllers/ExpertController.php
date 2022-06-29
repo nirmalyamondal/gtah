@@ -113,6 +113,8 @@ class ExpertController extends Controller
             $data   = $record[0];
         }
         $data['id']   = $id;
+        $data['countries'] = Country::get(['id', 'name']);
+        $data['categories'] = Category::all(['id', 'slug'])->where('parent', 0);
         $data['testimonials'] = $this->unAssignedTestimonial();
         $data['testimonials_to'] = $this->myTestimonial($id);        
         return view('expert/edit', ["data"=>$data]);
@@ -264,17 +266,25 @@ class ExpertController extends Controller
      * @return string
     */
     public function getTestimonialsByFilter($country,$category,$sub_category) {
-        $whereClause = "where('1', '=', 1)->";
+        $start = 0;
+        $limit = 200;
+        $order = 'id';
+        $dir = 'desc';
+        $dataSet = Testimonial::where('deleted_at', NULL);
         if($country > 0){
-            $whereClause .= "where('country', '=', $country)->";
+            $dataSet = $dataSet->where('country', '=', $country);
         }
         if($category > 0){
-            $whereClause .= "where('category', $category)->";
+            $dataSet = $dataSet->where('category', '=', $category);
         }
         if($sub_category > 0){
-            $whereClause .= "where('sub_category', $sub_category)->";
-        }
-        $testimonial = Testimonial::$whereClause.get()->toArray();
+            $dataSet = $dataSet->where('sub_category', '=', $sub_category);
+        }        
+        $dataSet = $dataSet->where('owner', '=', 0);
+        $testimonial =  $dataSet->offset($start)
+            ->limit($limit)
+            ->orderBy($order, $dir)
+            ->get()->toArray();
         $optionTestimonial = '';
         try{
             if(!empty($testimonial) && is_array($testimonial)){
