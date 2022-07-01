@@ -1,0 +1,61 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 01, 2022 at 02:19 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `gtah`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `q_categories`
+--
+
+CREATE TABLE `q_categories` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `created-at` datetime NOT NULL DEFAULT current_timestamp(),
+  `update-at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted-at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `q_categories`
+--
+
+INSERT INTO `q_categories` (`id`, `title`, `created-at`, `update-at`, `deleted-at`) VALUES
+(1, 'Hello', '2022-07-01 12:54:42', NULL, NULL),
+(2, 'Hello guys', '2022-07-01 12:56:30', '2022-07-01 12:57:07', NULL),
+(3, 'welcome', '2022-07-01 12:56:45', NULL, NULL),
+(4, 'kousik', '2022-07-01 17:47:04', NULL, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `q_categories`
+--
+ALTER TABLE `q_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `q_categories`
+--
+ALTER TABLE `q_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
