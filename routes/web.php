@@ -7,6 +7,9 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\QcategoryController;
+use App\Http\Controllers\AcategoryController;
+use App\Http\Controllers\ScategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,3 +58,25 @@ Route::post('testimonial', [TestimonialController::class, 'store']);
 Route::get('testimonial/{id}', [TestimonialController::class, 'edit']);
 Route::patch('testimonial/{id}', [TestimonialController::class, 'update']);
 Route::delete('testimonial/{id}', [TestimonialController::class, 'destroy']);
+
+//Question category routes
+Route::get('qcategory', [QcategoryController::class, 'create'])->name('qcategory.create');
+Route::post('qcategory', [QcategoryController::class, 'store']);
+Route::get('qcategory/{id}', [QcategoryController::class, 'edit']);
+Route::patch('qcategory/{id}', [QcategoryController::class, 'update']);
+Route::delete('qcategory/{id}', [QcategoryController::class, 'destroy']);
+
+//Assignment category routes
+Route::get('acategory', [AcategoryController::class, 'create'])->name('acategory.create');
+Route::post('acategory', [AcategoryController::class, 'store']);
+Route::get('acategory/{id}', [AcategoryController::class, 'edit']);
+Route::patch('acategory/{id}', [AcategoryController::class, 'update']);
+Route::delete('acategory/{id}', [AcategoryController::class, 'destroy']);
+
+//Subject category  routes
+Route::get('scategory', [ScategoryController::class, 'create'])->name('scategory.create');
+Route::post('scategory', [ScategoryController::class, 'store']);
+Route::get('scategory/{id}', [ScategoryController::class, 'edit']);
+Route::patch('scategory/{id}', [ScategoryController::class, 'update']);
+Route::delete('scategory/{id}', [ScategoryController::class, 'destroy']);
+Route::get('scategory_qid/{qid}', [ScategoryController::class, 'getAidByQid']);
